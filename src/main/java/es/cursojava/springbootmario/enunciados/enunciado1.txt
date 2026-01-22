@@ -1,0 +1,9 @@
+Cuando arranquemos y vayamos a la raiz de nuestro proyecto debemos de 
+redirigirnos a un html con un enlace (link)
+Ese enlace (peticion tipo GET) tiene que enviar dos numeros como parametros
+ en la url, que debemos de setear en nuestra clase controladora y debemos de
+  pasar el metodo de calcular mediante una operacion matematica.
+Despues esa peticion llega al controlador y mediante una carpeta de service,
+ creamos el servicio de CalculadoraService donde se va a manejar toda la
+  logica de la calculadora. hay que ver como llamar al metodo del servicio
+   sin hacer un new
