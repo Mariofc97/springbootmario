@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>CALCULADORA</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Inicio</title></head>
 <body>
+  <h1>Calculadora</h1>
 
-<p>Ir a calculadora</p>
+<a th:href="@{/calculadora(num1=12, num2=6, op='+')}">12 + 6</a><br/>
+  <a th:href="@{/calculadora(num1=12, num2=6, op='-')}">12 - 6</a><br/>
+  <a th:href="@{/calculadora(num1=12, num2=6, op='*')}">12 * 6</a><br/>
+  <a th:href="@{/calculadora(num1=12, num2=6, op='/')}">12 / 6</a><br/>
 </body>
 </html>

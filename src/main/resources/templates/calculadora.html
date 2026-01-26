@@ -1,17 +1,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Calculadora</title>
-</head>
+<head><title>Resultado</title></head>
 <body>
-  <h1>Calculadora</h1>
+  <h1 th:text="${mensaje}">Resultado</h1>
 
-  <!-- Enlace GET enviando parámetros en URL -->
-  <a th:href="@{/calculadora(num1=12, num2=6, op='+')}">Calcular 12 + 6</a>
-  <br/>
-  <a th:href="@{/calculadora(num1=12, num2=6, op='-')}">Calcular 12 - 6</a>
-  <br/>
-  <a th:href="@{/calculadora(num1=12, num2=6, op='*')}">Calcular 12 * 6</a>
-  <br/>
-  <a th:href="@{/calculadora(num1=12, num2=6, op='/')}">Calcular 12 / 6</a>
+  <p>Número 1: <span th:text="${numero1}"></span></p>
+  <p>Operador: <span th:text="${op}"></span></p>
+  <p>Número 2: <span th:text="${numero2}"></span></p>
+
+  <h2>Resultado: <span th:text="${resultado}"></span></h2>
+
+  <a th:href="@{/}">Volver</a>
 </body>
 </html>
