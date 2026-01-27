@@ -1,0 +1,20 @@
+Vamos a hacer otra carrera de caballos
+Para entrar en la carrera de caballos, en la URL vamos a poner ("/carreracaballos) aqui pueden pasar dos cosas, que haya o no caballos en la base de datos.
+	- Si no hay caballos. Tenemos que dar de alta a un caballo. y iremos a un nuevo HTML donde yo pueda registrar a un nuevo Caballo.
+		Formulario tipo:
+			Nombre, Dorsal, Peso,
+		Va a tener un boton de Enviar, cuando lo pulse el boton de enviar va a insertar los datos del caballo en la base de datos.
+		Si pasa algun problema a la hora de insertar por un error, voy a volver a la misma pagina de registroCaballos y me va a poner "Error insertando caballos" en rojo.
+		Si la insercion es correcta, vamos a un nuevo HTML donde lo que vamos a tener es una tabla con todos los caballos dados de alta. ("/datosCaballos")
+	-Si hay caballos vamos a ir directamente al HTML con la tabla de ("/datosCaballos)
+		(En ese HTML hay dos botones (NUEVO CABALLO) y (CORRER), si se pulsa en NUEVO CABALLO, vamos a la pagina HTML de ("/registroCaballos) donde realizaremos el alta.
+		El boton de correr nos llevara a otra pagina que nos dira cual es el nombre del Caballo Ganador y con un boton de VOLVER, (ESTARIA BIEN UNA PAGINA MAS QUE NOS DE EL REGISTRO DE TODOS LOS PASOS QUE HEMOS IDO DANDO)
+
+ENTITY:
+	CaballoEntity
+		id
+		nombre
+		dorsal
+		velocidad
+		peso
+		experiencia

@@ -30,6 +30,7 @@ public class EstudianteDto {
 	private String email;
 	private int edad;
 	private String curso;
+	
 	public EstudianteDto(String nombre, String email, int edad, String curso) {
 		super();
 		this.nombre = nombre;
@@ -37,6 +38,11 @@ public class EstudianteDto {
 		this.edad = edad;
 		this.curso = curso;
 	}
+	public EstudianteDto() {
+		super();
+	}
+	
+	
 	
 	
 }

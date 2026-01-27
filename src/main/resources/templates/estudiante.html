@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estudiante</title>
+</head>
+<body>
+
+  <h1>Alta de estudiante</h1>
+
+<p>Mensaje: <span th:text="${mensaje}"></span></p>
+
+<div th:if="${estudiantes != null and !estudiantes.isEmpty()}">
+	  <table border="1" cellpadding="6" cellspacing="0">
+	  <thead>
+	    <tr>
+	      <th>Nombre</th>
+	      <th>Email</th>
+	      <th>Edad</th>
+	      <th>Curso</th>
+	    </tr>
+	  </thead>
+	
+	  <tbody>
+	    <tr th:each="e : ${estudiantes}">
+	      <td th:text="${e.nombre}"></td>
+	      <td th:text="${e.email}"></td>
+	      <td th:text="${e.edad}"></td>
+	      <td th:text="${e.curso}"></td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+  <h2>Formulario</h2>
+
+  <form th:action="@{/estudiante}" th:object="${estudiante}" method="post">
+    <label>Nombre</label>
+    <input type="text" th:field="*{nombre}" />
+
+    <label>Email</label>
+    <input type="email" th:field="*{email}" />
+
+    <label>Edad</label>
+    <input type="number" th:field="*{edad}" />
+
+    <label>Curso</label>
+    <input type="text" th:field="*{curso}" />
+
+    <button type="submit">Enviar</button>
+  </form>
+
+</body>
+</html>
