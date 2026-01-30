@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Ganador</title>
+  <style>
+    .winner { font-size: 22px; font-weight: bold; margin: 20px 0; }
+    button { padding: 8px 16px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h1>Resultado de la carrera</h1>
+
+  <div th:if="${ganador == null}">
+    <p>No se puede correr la carrera (faltan caballos).</p>
+  </div>
+
+  <div th:if="${ganador != null}" class="winner">
+    Ganador: <span th:text="${ganador.nombre}"></span>
+  </div>
+
+  <form th:action="@{/datosCaballos}" method="get">
+    <button type="submit">VOLVER</button>
+  </form>
+</body>
+</html>

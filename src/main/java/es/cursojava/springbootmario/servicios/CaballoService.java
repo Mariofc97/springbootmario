@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import es.cursojava.springbootmario.entities.CaballoEntity;
 import es.cursojava.springbootmario.mappers.CaballoMapper;
@@ -12,6 +13,7 @@ import es.cursojava.springbootmario.models.CaballoDto;
 import es.cursojava.springbootmario.repository.CaballoRepository;
 import jakarta.transaction.Transactional;
 
+@Service
 public class CaballoService {
 
 	private final CaballoRepository repo;
@@ -30,18 +32,27 @@ public class CaballoService {
 	
 	@Transactional
 	public CaballoDto create(CaballoDto dto) {
-		if(dto.getNombre() == null || dto.getNombre().isBlank()) {
-			throw new IllegalArgumentException("name is required");
-		}
-		if(dto.getId() == null) {
-			throw new IllegalArgumentException("email is required");
-		}
+	    if(dto.getNombre() == null || dto.getNombre().isBlank()) {
+	        throw new IllegalArgumentException("nombre is required");
+	    }
+	    if(dto.getDorsal() == null) {
+	        throw new IllegalArgumentException("dorsal is required");
+	    }
+	    if(dto.getPeso() == null) {
+	        throw new IllegalArgumentException("peso is required");
+	    }
 		
 		CaballoEntity entity = mapper.toEntity(dto);
 		
 		CaballoEntity saved = repo.save(entity);
 		
 		return mapper.toDto(saved);
+	}
+	
+	public List<CaballoDto> findAll() {
+	    return repo.findAll().stream()
+	            .map(mapper::toDto)
+	            .toList();
 	}
 	
 	@Transactional()
@@ -82,52 +93,59 @@ public class CaballoService {
 	}
 	
 	public CaballoDto correr() {
-		
-		if(caballos.size() >= 2) {
-			for (CaballoDto c : caballos) {
-				c.setMetrosRecorridos(0.0);
-			}
-			
-			CaballoDto ganador = null;
-			
-			int turno = 0;
-			
-			while(ganador == null) {
-				turno++;
-				
-				for(CaballoDto c : caballos) {
-					double metros = calcularAvanceTurno(c);
-					aplicarAvance(c, metros);
-					if(c.getMetrosRecorridos() >= distanciaCarrera) {
-						break;
-					}
-					log.info("Turno " + turno + ": " + "caballo " + c.getNombre() + " " + Math.round(metros) + " metros. Total: " + Math.round(c.getMetrosRecorridos()));
-					
-				}
-				
-				List<CaballoDto> candidatos = new ArrayList<>();
-				double mejor = -1.0;
-				CaballoDto candidato = null;
-				for (CaballoDto c : caballos) {
-					double total = c.getMetrosRecorridos();
-					if(total >= distanciaCarrera && total > mejor) {
-						mejor = total;
-						candidato = c;
-					}
-				}
-				
-				if (candidato != null) {
-					ganador = candidato;
-				}
-			}
-			
-			log.info("Ganador: " + ganador.getNombre());
-			return ganador;
-		} else {
-			log.error("Necesitas al menos dos caballos para hacer una carrera");
-			return null;
-		}
+	    this.caballos = repo.findAll().stream()
+	            .map(mapper::toDto)
+	            .toList();
+
+	    log.info("Caballos en BD para carrera: {}", caballos.size());
+
+	    if (caballos.size() >= 2) {
+	        for (CaballoDto c : caballos) {
+	            c.setMetrosRecorridos(0.0);
+	        }
+
+	        CaballoDto ganador = null;
+	        int turno = 0;
+
+	        while (ganador == null) {
+	            turno++;
+
+	            for (CaballoDto c : caballos) {
+	                double metros = calcularAvanceTurno(c);
+	                aplicarAvance(c, metros);
+
+	                log.info("Turno {}: caballo {} avanza {} metros. Total: {}",
+	                        turno, c.getNombre(), Math.round(metros), Math.round(c.getMetrosRecorridos()));
+
+	                if (c.getMetrosRecorridos() >= distanciaCarrera) {
+	                    break;
+	                }
+	            }
+
+	            double mejor = -1.0;
+	            CaballoDto candidato = null;
+	            for (CaballoDto c : caballos) {
+	                double total = c.getMetrosRecorridos();
+	                if (total >= distanciaCarrera && total > mejor) {
+	                    mejor = total;
+	                    candidato = c;
+	                }
+	            }
+
+	            if (candidato != null) {
+	                ganador = candidato;
+	            }
+	        }
+
+	        log.info("Ganador: {}", ganador.getNombre());
+	        return ganador;
+
+	    } else {
+	        log.error("Necesitas al menos dos caballos para hacer una carrera");
+	        return null;
+	    }
 	}
+
 	
 	
 	

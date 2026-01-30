@@ -34,6 +34,7 @@ public class CaballoEntity {
     @Column(nullable = false)
     private Integer experiencia;
     
+    @Transient
     private double metrosRecorridos;
 
     public CaballoEntity() {

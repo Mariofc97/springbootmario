@@ -18,3 +18,17 @@ ENTITY:
 		velocidad
 		peso
 		experiencia
+		
+Rutas:
+
+	GET /carreracaballos → si hay 0 caballos → redirect:/registroCaballos si no → redirect:/datosCaballos
+	
+	GET /registroCaballos → formulario
+	
+	POST /registroCaballos → inserta; si error vuelve a la misma vista con mensaje rojo
+	
+	GET /datosCaballos → tabla + botones NUEVO CABALLO y CORRER
+	
+	POST /correr → vista ganador + botón volver
+	
+	(opcional) GET /registroPasos → log de pasos
